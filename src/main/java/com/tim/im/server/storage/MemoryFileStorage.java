@@ -1,4 +1,4 @@
-package com.tim.im.server.socket;
+package com.tim.im.server.storage;
 
 import org.springframework.stereotype.Component;
 
@@ -22,5 +22,9 @@ public class MemoryFileStorage {
 
     public byte[] getBlob(String id) {
         return blobMap.get(id);
+    }
+
+    public void remove(String id) {
+        blobMap.remove(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.tim.im.server.socket;
 
+import com.alibaba.fastjson.JSON;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,11 @@ public class IMWebSocket {
 
     @OnMessage
     public void onMessage(Session session, String message) {
-//        Message messageObj = JSON.parseObject(message, Message.class);
+        Message messageObj = JSON.parseObject(message, Message.class);
 //        if (messageObj.getType() == Message.AudioType) {
-//            Message.AudioContent audioContent = JSONObject.parse(messageObj.getContent().toJSONString(), Message.AudioContent.class);
-//
+//            Message.AudioContent audioContent = JSON.parseObject(messageObj.getContent().toJSONString(), Message.AudioContent.class);
+//            if(audioContent != null) {
+//            }
 //        }
         imManager.broadcastExcept(message, session);
     }

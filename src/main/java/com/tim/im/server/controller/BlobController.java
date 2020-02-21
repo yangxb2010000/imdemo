@@ -1,6 +1,6 @@
 package com.tim.im.server.controller;
 
-import com.tim.im.server.socket.MemoryFileStorage;
+import com.tim.im.server.storage.VoiceStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +19,12 @@ import java.io.IOException;
 @RequestMapping("/blob")
 public class BlobController {
     @Autowired
-    MemoryFileStorage fileStorage;
+    VoiceStorage voiceStorage;
 
     @RequestMapping("/upload")
     public String upload(@RequestParam("uploadFile") MultipartFile uploadFile) {
         try {
-            String id = fileStorage.upload(uploadFile.getBytes());
+            String id = voiceStorage.addVoice(uploadFile.getBytes());
             return id;
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class BlobController {
 
     @RequestMapping("/get")
     public void get(@RequestParam("id") String id, HttpServletResponse response) throws IOException {
-        byte[] blob = fileStorage.getBlob(id);
+        byte[] blob = voiceStorage.receiveVoice(id);
         if (blob == null) {
             return;
         }
