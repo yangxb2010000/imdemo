@@ -210,7 +210,8 @@ function toBase64(blob, callback) {
 function connect() {
     if ("WebSocket" in window) {
         // Let us open a web socket
-        window.ws = new WebSocket("ws://localhost:9998/ws/im");
+        var ip = window.location.host.split(":")[0];
+        window.ws = new WebSocket("ws://" + ip + ":9998/ws/im");
 
         ws.onopen = function () {
             console.log("websocket connected");
