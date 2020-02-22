@@ -51,7 +51,7 @@ public class IMWebSocket {
 
     @OnMessage
     public void onMessage(Session session, String message) {
-        Message messageObj = JSON.parseObject(message, Message.class);
+//        Message messageObj = JSON.parseObject(message, Message.class);
 //        if (messageObj.getType() == Message.AudioType) {
 //            Message.AudioContent audioContent = JSON.parseObject(messageObj.getContent().toJSONString(), Message.AudioContent.class);
 //            if(audioContent != null) {
@@ -62,10 +62,7 @@ public class IMWebSocket {
 
     @OnBinary
     public void onBinary(Session session, byte[] bytes) {
-        for (byte b : bytes) {
-            System.out.println(b);
-        }
-        session.sendBinary(bytes);
+        imManager.broadcastExcept(bytes, session);
     }
 
     @OnEvent

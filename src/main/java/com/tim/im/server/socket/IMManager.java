@@ -30,4 +30,12 @@ public class IMManager {
             }
         }
     }
+
+    public void broadcastExcept(byte[] bytes, Session exceptOne) {
+        for (Session session : sessionMap.values()) {
+            if (exceptOne == null || !exceptOne.equals(session)) {
+                session.sendBinary(bytes);
+            }
+        }
+    }
 }

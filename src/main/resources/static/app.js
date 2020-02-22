@@ -211,11 +211,17 @@ function connect() {
     if ("WebSocket" in window) {
         // Let us open a web socket
         var ip = window.location.host.split(":")[0];
-        window.ws = new WebSocket("ws://" + ip + ":9998/ws/im");
+        var isProd = 'https:' == document.location.protocol ? true : false;
+        var websocketUri
+        if (isProd) {
+            websocketUri = 'wss://' + ip + '/intercom/ws/im';
+        } else {
+            websocketUri = 'ws://' + ip + ':9998/ws/im';
+        }
+        window.ws = new WebSocket(websocketUri);
 
         ws.onopen = function () {
             console.log("websocket connected");
-
             connectStatus.innerHTML = "与服务器连接成功";
         };
 

@@ -40,12 +40,12 @@ red {
 }
 
 #controls {
-    display: flex;
     margin-top: 2rem;
     max-width: 28em;
 }
 
 button {
+    width: 200px;
     flex-grow: 1;
     height: 3.5rem;
     min-width: 2rem;
